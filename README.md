@@ -48,7 +48,7 @@ docker run -d --rm \
 |CLI ARG| `--tlsCertificateKeyFile /etc/ssl/mongocerts/server.pem` | Server certificate |
 
 
-## Testing
+## Test
 
 Start *mongo shell* in database *test*: 
 
@@ -64,12 +64,24 @@ $ docker exec -it mongo mongo test
 # Authentication
 
 See environment variables: MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD and CLI argument: --auth.
+Run:
+
+```
+docker run -d --rm --name mongo -p 27017:27017 -e MONGO_INITDB_DATABASE=mydatabase \
+        -e MONGO_INITDB_ROOT_USERNAME=admin \
+        -e MONGO_INITDB_ROOT_PASSWORD=pass \
+        mongo:4.4.4 \
+        --auth
+```
 
 __Notes:__ 
 - user MONGO_INITDB_ROOT will have read-write rights for all databases
 
+## Test 
+
 The *authenticationDatabase* is *admin* by default. If you specify a database name (*mydatabase* in the example), 
 then you have to specify which database to authenticate first (mydatabase has no users by default):
+
 ```
 docker exec -it mongo mongo --authenticationDatabase admin -u admin -p pass mydatabase
 > db
@@ -89,7 +101,7 @@ docker run --name mongo --rm -p 27017:27017 mongo:4.4.4 \
         --tlsAllowConnectionsWithoutCertificates
 ```
 
-## TEST
+## Test
 
 ```
 docker exec -it mongo mongo --tls --tlsCAFile /etc/ssl/mongocerts/ca.crt --tlsAllowInvalidHostnames
