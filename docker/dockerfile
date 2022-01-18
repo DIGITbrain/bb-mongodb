@@ -1,0 +1,19 @@
+# docker build -t mongodb:5.0.5 .
+# docker run -d --name mongo -e MONGO_INITDB_DATABASE=mydatabase -e MONGO_INITDB_ROOT_USERNAME=digitbrain -e MONGO_INITDB_ROOT_PASSWORD=digitbrain -e -p 27017:27017 mongodb:5.0.5
+
+FROM mongo:5.0.5
+
+RUN mkdir -p /home/mongodb/
+RUN chown mongodb:mongodb /home/mongodb/
+
+RUN mkdir -p /etc/ssl/mongocerts
+COPY ./certificates/ca.pem /etc/ssl/mongocerts/ca.pem
+COPY ./certificates/server-key.pem /etc/ssl/mongocerts/server-key.pem
+# cert file must begin with -----BEGIN CERTIFICATE-----
+COPY ./certificates/server-cert.pem /etc/ssl/mongocerts/server-cert.pem
+# concatenate key to cert file
+RUN cat /etc/ssl/mongocerts/server-key.pem >> /etc/ssl/mongocerts/server-cert.pem
+RUN chmod 600 /etc/ssl/mongocerts/server-*
+RUN chown mongodb:mongodb /etc/ssl/mongocerts/*
+
+CMD ["--auth", "--tlsMode", "requireTLS", "--tlsCAFile", "/etc/ssl/mongocerts/ca.pem", "--tlsCertificateKeyFile",  "/etc/ssl/mongocerts/server-cert.pem", "--tlsAllowConnectionsWithoutCertificates"]
