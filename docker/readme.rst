@@ -33,7 +33,7 @@ Usage
       -e MONGO_INITDB_ROOT_USERNAME=mydatabaseuser \
       -e MONGO_INITDB_ROOT_PASSWORD=mydatabasepassword \
       -p 27017:27017 \
-      mongodb-server:5.0.5
+      mongodb:5.0.5
       
 where MONGO_DB parameter is the name of an initial database to be created, 
 MONGO_USER and MONGO_PASSWORD parameters create a new database user with the given username and password,
