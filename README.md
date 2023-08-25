@@ -12,7 +12,7 @@ SSPLv1 (Community version)
 
 ## Version
 
-4.4.4
+6.x
 
 ## Description
 
@@ -26,7 +26,7 @@ General example:
 docker run -d --rm \
         --name mongo \
         -p 27017:27017 \
-        mongo:4.4.4
+        mongo:6
 ```
 
 ## Parameters
@@ -50,7 +50,7 @@ docker run -d --rm \
 
 ## Test
 
-Start *mongo shell* in database *test*: 
+Start *mongo shell* in database *test*:
 
 ```
 $ docker exec -it mongo mongo test
@@ -74,12 +74,12 @@ docker run -d --rm --name mongo -p 27017:27017 -e MONGO_INITDB_DATABASE=mydataba
         --auth
 ```
 
-__Notes:__ 
+__Notes:__
 - user MONGO_INITDB_ROOT will have read-write rights for all databases
 
-## Test 
+## Test
 
-The *authenticationDatabase* is *admin* by default. If you specify a database name (*mydatabase* in the example), 
+The *authenticationDatabase* is *admin* by default. If you specify a database name (*mydatabase* in the example),
 then you have to specify which database to authenticate first (mydatabase has no users by default):
 
 ```
@@ -119,7 +119,7 @@ Same as TLS but without --tlsAllowConnectionsWithoutCertificates option:
 ```
 docker run --name mongo -p 27017:27017 \
         -v $HOME/certs:/etc/ssl/mongocerts \
-        -d mongo:4.4.4 \
+        -d mongo:6 \
         --tlsMode requireTLS \
         --tlsCAFile /etc/ssl/mongocerts/ca.crt \
         --tlsCertificateKeyFile /etc/ssl/mongocerts/server.pem

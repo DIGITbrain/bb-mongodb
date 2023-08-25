@@ -1,7 +1,7 @@
-# docker build -t mongodb:5.0.5 .
-# docker run -d --name mongo -e MONGO_INITDB_DATABASE=mydatabase -e MONGO_INITDB_ROOT_USERNAME=digitbrain -e MONGO_INITDB_ROOT_PASSWORD=digitbrain -e -p 27017:27017 mongodb:5.0.5
+# docker build -t mongodb:6 .
+# docker run -d --name mongo -e MONGO_INITDB_DATABASE=mydatabase -e MONGO_INITDB_ROOT_USERNAME=digitbrain -e MONGO_INITDB_ROOT_PASSWORD=digitbrain -e -p 27017:27017 mongodb:6
 
-FROM mongo:5.0.5
+FROM mongo:6
 
 RUN mkdir -p /home/mongodb/
 RUN chown mongodb:mongodb /home/mongodb/

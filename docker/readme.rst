@@ -4,12 +4,12 @@ MongoDB
 
 About
 =====
-**MongoDB Community Server** [1]_ is a free and open-source cross-platform document-oriented database program. 
+**MongoDB Community Server** [1]_ is a free and open-source cross-platform document-oriented database program.
 Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemata.
 
 Version
 -------
-MongoDB Community Server version **5.0.5** deployed based on the official Docker Hub image: [2]_. 
+MongoDB Community Server version **6.x** deployed based on the official Docker Hub image: [2]_.
 
 License
 -------
@@ -19,9 +19,9 @@ Pre-requisites
 ==============
 * *docker* installed
 * access to DIGITbrain private docker repo (username, password) to pull the image:
-  
+
   - ``docker login dbs-container-repo.emgora.eu``
-  - ``docker pull dbs-container-repo.emgora.eu/mongodb:5.0.5``
+  - ``docker pull dbs-container-repo.emgora.eu/mongodb:6``
 
 Usage
 =====
@@ -33,9 +33,9 @@ Usage
       -e MONGO_INITDB_ROOT_USERNAME=mydatabaseuser \
       -e MONGO_INITDB_ROOT_PASSWORD=mydatabasepassword \
       -p 27017:27017 \
-      mongodb:5.0.5
-      
-where MONGO_DB parameter is the name of an initial database to be created, 
+      mongodb:6
+
+where MONGO_DB parameter is the name of an initial database to be created,
 MONGO_USER and MONGO_PASSWORD parameters create a new database user with the given username and password,
 standard MongoDB port 27017 is opened on the host, and SSL turned on.
 
@@ -46,7 +46,7 @@ standard MongoDB port 27017 is opened on the host, and SSL turned on.
 Security
 ========
 The docker image uses **TLS traffic encryption** and **username-password authentication**,
-using a DIGITbrain server certificate signed by DIGITbrain CA. 
+using a DIGITbrain server certificate signed by DIGITbrain CA.
 You can override these certificates with your own, see parameters below.
 
 In clients, use ``--tls --tlsCAFile ca.crt --tlsAllowInvalidHostnames`` to enable TLS [4]_.
@@ -60,13 +60,13 @@ which is not needed using your own valid host certificates, e.g. to test connect
   admin
   > db.auth("mydatabaseuser", "mydatabasepassword")
   1
-  
+
 Configuration
 =============
 
 Environment variables
 ---------------------
-.. list-table:: 
+.. list-table::
    :header-rows: 1
 
    * - Name
@@ -80,11 +80,11 @@ Environment variables
      - Username for a newly created user
    * - *password*
      - ``-e MONGO_INITDB_ROOT_PASSWORD=mydatabasepassword``
-     - Password for a newly created user  
+     - Password for a newly created user
 
 Ports
 -----
-.. list-table:: 
+.. list-table::
   :header-rows: 1
 
   * - Container port
@@ -96,20 +96,20 @@ Ports
 
 Volumes
 -------
-.. list-table:: 
+.. list-table::
   :header-rows: 1
 
   * - Name
     - Volume mount example
     - Comment
-  * - *Mongo data*    
+  * - *Mongo data*
     - ``-v $PWD/data:/data/db/``
     - Mongo data will be persisted in host directory: ``./data``.
-  * - *CA certificate*    
-    - ``-v $PWD/certificates/ca.pem:/etc/ssl/mongocerts/ca.pem``  
+  * - *CA certificate*
+    - ``-v $PWD/certificates/ca.pem:/etc/ssl/mongocerts/ca.pem``
     - Overrides Certificate Authority (CA) certificate
-  * - *Server certificate and key*    
-    - ``-v $PWD/certificates/server-cert.pem:/etc/ssl/mongocerts/server-cert.pem``  
+  * - *Server certificate and key*
+    - ``-v $PWD/certificates/server-cert.pem:/etc/ssl/mongocerts/server-cert.pem``
     - Overrides server certificate and key (concatenate key to cert if you have separated)
 
 References
